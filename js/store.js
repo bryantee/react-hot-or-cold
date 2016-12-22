@@ -1,4 +1,4 @@
 import { createStore } from 'redux';
-import * as reducers from './reducers/index';
+import reducers from './reducers/index';
 
-export default createStore (reducers.randNumReducer);
+export default createStore (reducers);
