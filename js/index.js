@@ -1,13 +1,15 @@
+import React from 'react'
+import ReactDOM from 'react-dom'
+import {Provider} from 'react-redux'
+
 import store from './store'
-import * as actions from './actions/index'
 
-let randomNumber = Math.floor(Math.random() * 100);
+// let randomNumber = Math.floor(Math.random() * 100);
 
-store.dispatch(actions.setRandNum(randomNumber));
-console.log(store.getState());
-store.dispatch(actions.newGuess(50));
-console.log(store.getState());
-store.dispatch(actions.newGuess(randomNumber));
-console.log(store.getState());
-store.dispatch(actions.newGame());
-console.log(store.getState());
+document.addEventListener('DOMContentLoaded', () => {
+  ReactDOM.render(
+    <Provider store={store}>
+      <Game />
+    </Provider>
+  ), document.getElementById('app')
+});
