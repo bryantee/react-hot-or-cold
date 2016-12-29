@@ -3,23 +3,13 @@ import {connect} from 'react-redux'
 import * as actions from '../actions/index'
 import GuessList from './guess-list'
 import GuessForm from './guess-form'
+import Message from './message'
 
 export class Game extends React.Component {
   constructor(props) {
     super(props);
-    this.guess = this.guess.bind(this);
     this.makeGuess = this.makeGuess.bind(this);
     this.state = {};
-  }
-
-  guess(guessInput) {
-    if (!guessInput) return;
-    if (typeof guessInput.value === 'string' ) {
-      console.log(`Guess Input: ${guessInput.value}`);
-      this.setState({
-        guessInput: guessInput.value
-      });
-    }
   }
 
   makeGuess(guess) {
@@ -27,17 +17,31 @@ export class Game extends React.Component {
   }
 
   render() {
+    let content = [];
+    if (this.props.correctGuess === true) {
+      content.push(<h1>Congratulations, you won!</h1>);
+      content.push(<button onClick={() => this.props.dispatch(actions.newGame())}>New Game</button>)
+    }
+    else {
+      content.push(<GuessForm makeGuess={this.makeGuess} />);
+      content.push(<Message message={this.props.message} />);
+    }
+
+
     return (
       <div>
+        {content}
         <GuessList guesses={this.props.guesses} />
-        <GuessForm guess={this.guess} makeGuess={this.makeGuess} />
       </div>
     );
   }
 }
 
 const mapToStateToProps = (state, props) => ({
-  guesses: state.guesses
+  guesses: state.guesses,
+  correctGuess: state.correctGuess,
+  randomNumber: state.randomNumber,
+  message: state.message
 });
 
 const GameContainer = connect(mapToStateToProps)(Game);

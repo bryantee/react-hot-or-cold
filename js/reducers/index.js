@@ -20,6 +20,11 @@ const quizReducer = (state, action) => {
       let guesses = state.guesses.concat(action.userGuess);
       let correctGuess = false;
       if (state.randomNumber === parseInt(action.userGuess)) correctGuess = true;
+      let difference = Math.abs(state.randomNumber - action.userGuess);
+      if (difference <= 10) state.message = 'Very hot!';
+      else if (difference <= 25) state.message = 'Warm!';
+      else if (difference < 50 ) state.message = 'Cold!';
+      else state.message = 'Freezing!';
       return {...state, guesses: guesses, correctGuess: correctGuess};
   }
   return state;
