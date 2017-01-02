@@ -29,6 +29,8 @@ const quizReducer = (state, action) => {
       return {...state, guesses: guesses, correctGuess: correctGuess};
     case actions.FETCH_FEWEST_GUESSES_SCUCCESS:
       return {...initialState, fewestGuesses: action.fewestGuesses };
+    case actions.SAVE_FEWEST_GUESSES_SUCCESS:
+      return {...initialState, message: action.message, fewestGuesses: action.fewestGuesses };
   }
   return state;
 }

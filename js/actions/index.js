@@ -41,6 +41,25 @@ export const fetchFewestGuessesError = (error) => {
   };
 };
 
+// sync actions to handle POST requests
+// for succes and error
+export const SAVE_FEWEST_GUESSES_SUCCESS = 'SAVE_FEWEST_GUESSES_SUCCESS';
+export const saveFewestGuessesSuccess = (message, fewestGuesses) => {
+  return {
+    type: SAVE_FEWEST_GUESSES_SUCCESS,
+    message,
+    fewestGuesses
+  };
+};
+
+export const SAVE_FEWEST_GUESSES_ERROR = 'SAVE_FEWEST_GUESSES_ERROR';
+export const saveFewestGuessesError = (error) => {
+  return {
+    type: SAVE_FEWEST_GUESSES_ERROR,
+    error
+  }
+}
+
 // async GET request to server
 export const fetchFewestGuesses = () => dispatch => {
   const url = 'http://127.0.0.1:8080/fewest-guesses';
@@ -62,3 +81,19 @@ export const fetchFewestGuesses = () => dispatch => {
 };
 
 // async POST request to server
+export const saveFewestGuesses = (numberOfGuesses) => dispatch => {
+  console.log('Number of guesses in async function:', numberOfGuesses);
+  const url = 'http://127.0.0.1:8080/fewest-guesses';
+  return fetch(url, {
+    method: 'POST',
+    body: JSON.stringify({ numberOfGuesses: numberOfGuesses }),
+    headers: new Headers({ "Content-Type": "application/json"})
+  }).then( response => response.json())
+    .then( data => {
+      console.log('Data in saveFewestGuesses', data);
+      dispatch(saveFewestGuessesSuccess(data.message, data.fewestGuesses));
+    }).catch( error => {
+      console.log(error);
+      dispatch(saveFewestGuessesError(error));
+    });
+};

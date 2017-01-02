@@ -10,8 +10,8 @@ export class Game extends React.Component {
   constructor(props) {
     super(props);
     this.makeGuess = this.makeGuess.bind(this);
-    this.state = {};
     this.getFewestGuessesFromServer();
+    this.saveFewestGuessesToServer = this.saveFewestGuessesToServer.bind(this);
   }
 
   makeGuess(guess) {
@@ -22,11 +22,19 @@ export class Game extends React.Component {
     this.props.dispatch(actions.fetchFewestGuesses());
   }
 
+  saveFewestGuessesToServer(numberOfGuesses) {
+    console.log('saveFewestGuesses called', numberOfGuesses);
+    if ((parseInt(this.props.fewestGuesses) > parseInt(numberOfGuesses)) || typeof this.props.fewestGuesses === 'string') {
+      this.props.dispatch(actions.saveFewestGuesses(numberOfGuesses));
+    }
+  }
+
   render() {
     let content = [];
     if (this.props.correctGuess === true) {
       content.push(<h1>Congratulations, you won!</h1>);
       content.push(<button onClick={() => this.props.dispatch(actions.newGame())}>New Game</button>)
+      this.saveFewestGuessesToServer(this.props.guesses.length);
     }
     else {
       content.push(<GuessForm makeGuess={this.makeGuess} />);
