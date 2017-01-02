@@ -11,10 +11,15 @@ export class Game extends React.Component {
     super(props);
     this.makeGuess = this.makeGuess.bind(this);
     this.state = {};
+    this.getFewestGuessesFromServer();
   }
 
   makeGuess(guess) {
     this.props.dispatch(actions.newGuess(guess));
+  }
+
+  getFewestGuessesFromServer() {
+    this.props.dispatch(actions.fetchFewestGuesses());
   }
 
   render() {

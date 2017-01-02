@@ -27,6 +27,8 @@ const quizReducer = (state, action) => {
       else if (difference < 50 ) state.message = 'Cold!';
       else state.message = 'Freezing!';
       return {...state, guesses: guesses, correctGuess: correctGuess};
+    case actions.FETCH_FEWEST_GUESSES_SCUCCESS:
+      return {...initialState, fewestGuesses: action.fewestGuesses };
   }
   return state;
 }
