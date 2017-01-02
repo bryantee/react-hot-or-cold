@@ -5,7 +5,8 @@ const initialState = {
   randomNumber: Math.floor(Math.random() * 100),
   guesses: [],
   correctGuess: false,
-  message: ''
+  message: '',
+  fewestGuesses: ''
 };
 
 const quizReducer = (state, action) => {

@@ -4,6 +4,7 @@ import * as actions from '../actions/index'
 import GuessList from './guess-list'
 import GuessForm from './guess-form'
 import Message from './message'
+import FewestGuesses from './fewest-guesses'
 
 export class Game extends React.Component {
   constructor(props) {
@@ -31,6 +32,7 @@ export class Game extends React.Component {
     return (
       <div>
         {content}
+        <FewestGuesses fewestGuesses={this.props.fewestGuesses} />
         <GuessList guesses={this.props.guesses} />
       </div>
     );
@@ -41,7 +43,8 @@ const mapToStateToProps = (state, props) => ({
   guesses: state.guesses,
   correctGuess: state.correctGuess,
   randomNumber: state.randomNumber,
-  message: state.message
+  message: state.message,
+  fewestGuesses: state.fewestGuesses
 });
 
 const GameContainer = connect(mapToStateToProps)(Game);
