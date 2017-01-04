@@ -16,7 +16,7 @@ const quizReducer = (state, action) => {
     case actions.SET_RAND_NUM:
       return {...state, randomNumber: action.randomNumber };
     case actions.NEW_GAME:
-      return {...initialState, randomNumber: Math.floor(Math.random() * 100)};
+      return {...initialState, fewestGuesses: state.fewestGuesses, randomNumber: Math.floor(Math.random() * 100)};
     case actions.NEW_GUESS:
       let guesses = state.guesses.concat(action.userGuess);
       let correctGuess = false;
@@ -27,10 +27,10 @@ const quizReducer = (state, action) => {
       else if (difference < 50 ) state.message = 'Cold!';
       else state.message = 'Freezing!';
       return {...state, guesses: guesses, correctGuess: correctGuess};
-    case actions.FETCH_FEWEST_GUESSES_SCUCCESS:
-      return {...initialState, fewestGuesses: action.fewestGuesses };
+    case actions.FETCH_FEWEST_GUESSES_SUCCESS:
+      return {...state, fewestGuesses: action.fewestGuesses };
     case actions.SAVE_FEWEST_GUESSES_SUCCESS:
-      return {...initialState, message: action.message, fewestGuesses: action.fewestGuesses };
+      return {...state, message: action.message, fewestGuesses: action.fewestGuesses };
   }
   return state;
 }

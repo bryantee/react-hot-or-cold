@@ -22,11 +22,11 @@ export const newGuess = (userGuess) => ({
 
 // sync actions to call after async response from server
 // set's fewestGuesses state
-export const FETCH_FEWEST_GUESSES_SCUCCESS = 'FETCH_FEWEST_GUESSES_SCUCCESS';
+export const FETCH_FEWEST_GUESSES_SUCCESS = 'FETCH_FEWEST_GUESSES_SUCCESS';
 export const fetchFewestGuessesSuccess = (fewestGuesses) => {
   console.log('fewestGuesses in success action:', fewestGuesses);
   return {
-    type: FETCH_FEWEST_GUESSES_SCUCCESS,
+    type: FETCH_FEWEST_GUESSES_SUCCESS,
     fewestGuesses
   };
 };
@@ -62,7 +62,7 @@ export const saveFewestGuessesError = (error) => {
 
 // async GET request to server
 export const fetchFewestGuesses = () => dispatch => {
-  const url = 'http://127.0.0.1:8080/fewest-guesses';
+  const url = '/fewest-guesses';
   return fetch(url).then( response => {
     if (!response.ok) {
       const error = new Error(response.statusText);
@@ -83,7 +83,7 @@ export const fetchFewestGuesses = () => dispatch => {
 // async POST request to server
 export const saveFewestGuesses = (numberOfGuesses) => dispatch => {
   console.log('Number of guesses in async function:', numberOfGuesses);
-  const url = 'http://127.0.0.1:8080/fewest-guesses';
+  const url = '/fewest-guesses';
   return fetch(url, {
     method: 'POST',
     body: JSON.stringify({ numberOfGuesses: numberOfGuesses }),

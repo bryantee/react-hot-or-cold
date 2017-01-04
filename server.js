@@ -17,9 +17,9 @@ app.post('/fewest-guesses', (req, res) => {
   if (typeof fewestGuesses == 'string' || req.body.numberOfGuesses < fewestGuesses) {
     fewestGuesses = req.body.numberOfGuesses;
     console.log(`POST made, fewestGuesses now: ${fewestGuesses}`);
-    res.status(200).json({ message: 'You are now have the fewest guesses!', fewestGuesses});
+    res.status(200).json({ message: 'You now have the fewest guesses!', fewestGuesses});
   } else {
-    res.status(200).json({ message: 'Sorry, you didn\'t get the fewest guesses. Try again.'});
+    res.status(200).json({ message: 'Sorry, you didn\'t get the fewest guesses. Try again.', fewestGuesses});
   }
 });
 

@@ -10,7 +10,6 @@ export class Game extends React.Component {
   constructor(props) {
     super(props);
     this.makeGuess = this.makeGuess.bind(this);
-    this.getFewestGuessesFromServer();
     this.saveFewestGuessesToServer = this.saveFewestGuessesToServer.bind(this);
   }
 
@@ -23,10 +22,7 @@ export class Game extends React.Component {
   }
 
   saveFewestGuessesToServer(numberOfGuesses) {
-    console.log('saveFewestGuesses called', numberOfGuesses);
-    if ((parseInt(this.props.fewestGuesses) > parseInt(numberOfGuesses)) || typeof this.props.fewestGuesses === 'string') {
-      this.props.dispatch(actions.saveFewestGuesses(numberOfGuesses));
-    }
+    this.props.dispatch(actions.saveFewestGuesses(numberOfGuesses));
   }
 
   render() {
